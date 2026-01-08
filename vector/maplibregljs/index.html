@@ -44,7 +44,7 @@
 <body>
 	<div id="map"></div>
 
-	<script src="otm_layers.json"></script>
+	<script src="otm_layers.js"></script>
 	<script>
 		maplibregl.addProtocol('cog', MaplibreCOGProtocol.cogProtocol);
 		var demSource = new mlcontour.DemSource({
@@ -82,6 +82,15 @@
 						tileSize: 512,
 						'attribution': 'DEM: © mapterhorn.com'
 					},
+					terrainSource: {
+                        type: 'raster-dem',
+						encoding: "terrarium",
+                        tiles: [demSource.sharedDemProtocolUrl],
+						minzoom: 9,
+						maxzoom: 11,
+						tileSize: 512,
+						'attribution': 'DEM: © mapterhorn.com'
+                    },
 					/*'dem': {
 						'type': 'raster-dem',
 						'url': 'cog://https://backup.opentopomap.org/vector/dem-srtm-cog.tif#dem',
@@ -134,8 +143,8 @@
 				'sprite': "https://backup.opentopomap.org/vector/otm_sprite",
 				'layers': otm_layers,
 				terrain: {
-                    source: 'dem',
-                    exaggeration: 1
+                    source: 'terrainSource',
+                    exaggeration: 1,
                 },
 				'sky': {
 					"sky-color": "#199EF3",
@@ -159,7 +168,7 @@
 			hash: true
 		});
 
-		const grid = new MaplibreGrid.Grid({
+		const grid = new maplibregl.Grid({
 			gridWidth: 10,
 			gridHeight: 10,
 			units: 'degrees',
