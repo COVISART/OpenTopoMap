@@ -120,6 +120,27 @@
 						maxzoom: 15,
 
 					},
+					contourSource: {
+                        type: 'vector',
+                        tiles: [
+                            demSource.contourProtocolUrl({
+                                thresholds: {
+									10: [250, 1000],
+									11: [100, 500],
+                                    12: [50, 100],
+									13: [50, 100],
+                                    14: [20, 100],
+									15: [10, 100]
+                                },
+                                elevationKey: 'ele',
+                                levelKey: 'level',
+                                contourLayer: 'contours',
+                                buffer: 1,
+                                overzoom: 2,
+                            })
+                        ],
+                        maxzoom: 17
+                    },
 					'opentopomap-tiles': {
 						'type': 'raster',
 						'tiles': [

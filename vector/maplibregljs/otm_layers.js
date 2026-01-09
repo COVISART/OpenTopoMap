@@ -90,39 +90,29 @@ const otm_layers = [
 	"paint": { "hillshade-shadow-color": "#2d3100", "hillshade-method": "igor"}
 },
 {
-	"id": "contour-lines",
-	"type": "line",
-	"source": "contour-source",
-	"source-layer": "contours",
-	"paint": {
-		"line-color": "rgba(196,87,0,0.7)",
-		"line-width": ["match", ["get", "level"], 1, 0.6, 0.2],
+	id: 'contours',
+	type: 'line',
+	source: 'contourSource',
+	'source-layer': 'contours',
+	paint: {
+		'line-color': 'rgb(215, 151, 060)',
+		'line-width': ['match', ['get', 'level'], 1, 1, 0.5],
 	},
 },
 {
-	"id": "contour-labels",
-	"type": "symbol",
-	"source": "contour-source",
-	"source-layer": "contours",
-	"filter": [
-		"case",
-		["<=", ["zoom"], 13], 
-		[">", ["get", "level"], 0],
-		true // "type don"t care" (return true to show all features)
-	],
-	"layout": {
-		"symbol-placement": "line",
-		"symbol-spacing": 200,
-		"text-max-angle": 120,
-		"text-keep-upright": false,
-        "text-field": "{ele}",
-        "text-size": ["step",["zoom"],8,15, ["case",[">", ["get", "level"], 0], 10, 8]],
-        "text-font": ["Roboto Regular"]
+	id: 'contour-text',
+	type: 'symbol',
+	source: 'contourSource',
+	'source-layer': 'contours',
+	paint: {
+		'text-color': 'rgb(172, 120, 48)',
+		'text-halo-width': 2,
 	},
-	"paint": {
-		"text-color": "#bc7e55",
-		"text-halo-color": "rgba(255, 255, 255, 0.5)",
-		"text-halo-width": 1.5
+	layout: {
+		'symbol-placement': 'line-center',
+		'text-size': 14,
+		'text-field': ['concat', ['number-format', ['get', 'ele'], {},], 'm'],
+		'text-font': ['Noto Sans Regular']
 	}
 },
 {
